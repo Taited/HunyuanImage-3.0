@@ -431,7 +431,7 @@ class HunyuanImage3ImageProcessor(object):
         """
         origin_size = image.size
         # Process image through ViT processor
-        inputs = self.vit_info.processor(image)
+        inputs = self.vit_info.processor(image, return_tensors="pt")
         image = inputs["pixel_values"].squeeze(0)   # (seq_len, dim)
 
         # Extract additional processor outputs (spatial shapes, attention masks, etc.)

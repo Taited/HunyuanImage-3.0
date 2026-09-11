@@ -149,3 +149,9 @@ __*/
 *.pth
 *.safetensors
 HunyuanImage-3/
+
+dataset
+weights
+.claude
+outputs
+weekly_*

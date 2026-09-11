@@ -930,7 +930,7 @@ class HunyuanStaticCache(StaticCache):
         """
         cache_position = cache_kwargs.get("cache_position")
         if self.layers[layer_idx].keys is None:
-            self.layers[layer_idx].lazy_initialization(key_states)
+            self.layers[layer_idx].lazy_initialization(key_states, value_states)
         k_out = self.layers[layer_idx].keys
         v_out = self.layers[layer_idx].values
 
@@ -2903,7 +2903,6 @@ class HunyuanImage3ForCausalMM(HunyuanImage3PreTrainedModel, GenerationMixin):
                 "attention_mask": attention_mask,
                 "position_ids": position_ids,
                 "past_key_values": past_key_values,
-                # "use_cache": kwargs.get("use_cache"),
                 "rope_image_info": kwargs["rope_image_info"],
                 "mode": kwargs["mode"],
                 "images": kwargs.get("images"),
@@ -2926,6 +2925,12 @@ class HunyuanImage3ForCausalMM(HunyuanImage3PreTrainedModel, GenerationMixin):
             }
         )
 
+        # Transformers 5.x expects this key during autoregressive text
+        # decoding. Do not add it to image diffusion generation: doing so
+        # changes sequence-length handling in the generic sampling loop.
+        if kwargs["mode"] == "gen_text":
+            model_inputs["use_cache"] = kwargs.get("use_cache", False)
+
         return model_inputs
 
     def _update_model_kwargs_for_generation(
@@ -2943,6 +2948,10 @@ class HunyuanImage3ForCausalMM(HunyuanImage3PreTrainedModel, GenerationMixin):
             "mode": mode,
             "rope_image_info": model_kwargs["rope_image_info"],
         }
+        if mode == "gen_text":
+            # Required by the Transformers 5.x sampling loop. Preserve the
+            # caller's cache mode across custom generation updates.
+            updated_model_kwargs["use_cache"] = model_kwargs.get("use_cache", False)
 
         # update past_key_values keeping its naming used in model code
         for possible_cache_name in ALL_CACHE_NAMES:
@@ -3414,4 +3423,3 @@ __all__ = [
     "apply_rotary_pos_emb",
     "build_batch_2d_rope",
 ]
-

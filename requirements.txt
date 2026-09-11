@@ -18,7 +18,8 @@ loguru>=0.7.3
 
 # Performance optimizations (recommended for up to 3x faster inference)
 # flashinfer-python==0.5.0
-# Install with: pip install flashinfer-python==0.5.0
+# Install with: pip install 
+flashinfer-python==0.5.0
 
 # Interactive demo
 gradio>=4.21.0
