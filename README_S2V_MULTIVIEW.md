@@ -1,6 +1,6 @@
 # S2V Object-only 多视角流程生成
 
-流程：从 easy-HOI 的 `index.jsonl` 直接生成完整 multi-view jobs，然后用 HunyuanImage 3 Distil 推理。
+输入支持 easy-HOI `index.jsonl`，或 MASt3R 保留帧 + Gemma bbox；均转换为 multi-view jobs 后交给 HunyuanImage 3 Distil 推理。
 
 ## 入口
 
@@ -32,7 +32,25 @@ checkpoint 必须包含 32 个 safetensors shard，以及 `config.json`、`gener
 
 数据、模型、生成图片、manifest 和日志都不提交 Git。仓库的 `.gitignore` 已排除 `dataset/`、`weights/` 和输出目录。
 
-## 第一步：生成完整 jobs
+## 从 MASt3R 筛选结果继续
+
+已有 `filtered.json` 时使用下面的入口，无需 easy-HOI index：
+
+```bash
+.venv/bin/python build_filtered_keyframe_jobs.py \
+  --filtered-json dataset/gemma_keyframe_filtered/filtered.json \
+  --bbox-json dataset/gemma_keyframe_bbox.json \
+  --keyframes-dir dataset/gemma_keyframe_filtered \
+  --output dataset/s2v_keyframe_recontext/jobs.filtered.jsonl
+```
+
+`--keyframes-dir` 可指向 `--copy-frames` 的输出或原始关键帧目录。`--filtered-json` 支持多个分片文件，不要混用分片与合并结果。每个目录为一个主物体组，沿用 MASt3R 最大面积检测；保留全部选中帧，最大目标帧为 anchor，其余按帧号排列。该入口不强制四视角，也不做多物体实例跟踪。
+
+转换会检查缺失图片、尺寸、无效 bbox 和重复记录；全部通过后才原子替换 jobs。输出包含稳定的 `sample_id`、`entity_id`、`job_name`、绝对图片路径及归一化 `[x0,y0,x1,y1]` bbox。迁移图像目录后应重新构建 jobs。
+
+将下文推理命令的 `--jobs` 改为 `dataset/s2v_keyframe_recontext/jobs.filtered.jsonl`，输出目录建议用 `dataset/s2v_object_only-hunyuan-distil/filtered`。Gemma 审核的 `--prepare-only` 支持 `--jobs <同一份 JSONL> --generation-root <该输出目录>`，无需拆分 anchor 和 extra jobs。
+
+## 第一步：从 easy-HOI 生成完整 jobs
 
 下面这一条命令完成全部 jobs 构建：
 
