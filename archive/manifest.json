@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-12",
+  "workspace": "/mnt/data04/144632/qiwei.huang@videorebirth.com/wentai",
+  "files": [
+    {
+      "original": "HunyuanImage-3.0/run_s2v_canonical_hunyuan_distil_jobs.py",
+      "archived": "HunyuanImage-3.0/archive/experiments/canonical-product/run_s2v_canonical_hunyuan_distil_jobs.py",
+      "sha256": "172de6ce177715741de8c1acd199c8e91b6d9569e64bc50cddf35fde0b2836c0"
+    },
+    {
+      "original": "HunyuanImage-3.0/run_s2v_canonical_hunyuan_distil.sh",
+      "archived": "HunyuanImage-3.0/archive/experiments/canonical-product/run_s2v_canonical_hunyuan_distil.sh",
+      "sha256": "356cd8ff0110ba35172bb93588dc9367ca4b0ded3d4ec95a4f57c680b976ede3"
+    },
+    {
+      "original": "HunyuanImage-3.0/sweep_canonical_prompts.py",
+      "archived": "HunyuanImage-3.0/archive/experiments/canonical-product/sweep_canonical_prompts.py",
+      "sha256": "1ab06843aa5c6aeb8f628982fd988c87af795b4a2e209a32e77b47f1e3f4cce2"
+    },
+    {
+      "original": "HunyuanImage-3.0/merge_canonical_manifests.py",
+      "archived": "HunyuanImage-3.0/archive/experiments/canonical-product/merge_canonical_manifests.py",
+      "sha256": "c64aab676e5af20be05559de5fdb9a3405c58775c7b640b6bac7dfe31b1a612c"
+    },
+    {
+      "original": "HunyuanImage-3.0/run_end_frame_generation_jobs.py",
+      "archived": "HunyuanImage-3.0/archive/experiments/video-frame-generation/run_end_frame_generation_jobs.py",
+      "sha256": "6af05013ac3e47999e074e56a74d10f143150fe8e6ea19223c3761cd24bf42e5"
+    },
+    {
+      "original": "HunyuanImage-3.0/run_ref_img_generation_jobs.py",
+      "archived": "HunyuanImage-3.0/archive/experiments/video-frame-generation/run_ref_img_generation_jobs.py",
+      "sha256": "301dd3cf3be9e8bd5ea909dc5b663d351c057deb98f4b3521892518c38e29def"
+    },
+    {
+      "original": "HunyuanImage-3.0/run_s2v_object_only_pending_8gpu.sh",
+      "archived": "HunyuanImage-3.0/archive/experiments/legacy-runs/run_s2v_object_only_pending_8gpu.sh",
+      "sha256": "c96a11d5c1f0eb545a95aef37dcdda924c675f3cc09430cd09c0b18e0f41e5f3"
+    },
+    {
+      "original": "HunyuanImage-3.0/test_multiframe_three_view.py",
+      "archived": "HunyuanImage-3.0/archive/experiments/legacy-runs/test_multiframe_three_view.py",
+      "sha256": "7004bb1e86c8227e9e44d2f613debe1f3aba73b52ed3cdf131dc2be84c5fd666"
+    },
+    {
+      "original": "HunyuanImage-3.0/tools/export_s2v_weekly_examples.py",
+      "archived": "HunyuanImage-3.0/archive/experiments/reporting/tools/export_s2v_weekly_examples.py",
+      "sha256": "ddaab4d03a3b8fbe86ca6b252534105b8afe6e295e7d98240671e166dd7b47c7"
+    }
+  ]
+}
